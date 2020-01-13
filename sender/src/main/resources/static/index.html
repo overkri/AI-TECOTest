@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Send Data</title>
+</head>
+<body>
+Сообщение
+<br><textarea id="tarea" cols="60" rows="10" placeholder="Введите описание"></textarea><br>
+<input id="buttonConfirmMessage" type="button" class="buttonConfirmMessage" value="Отправить сообщение"/>
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    document.getElementById('buttonConfirmMessage').addEventListener('click', function () {
+        SendData();
+    });
+
+    function SendData() {
+        var message = document.getElementById('tarea').value;
+        axios({
+            method: 'post',
+            url: '/index',
+            data: {
+                message: message
+            }
+        });
+    }
+</script>
+</html>
