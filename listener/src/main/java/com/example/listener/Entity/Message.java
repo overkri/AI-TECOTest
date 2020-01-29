@@ -18,6 +18,9 @@ public class Message {
     @Column(name = "Id", nullable = false)
     private Long id;
 
+    @Column(name = "Message")
+    private String message;
+
     public Long getId() {
         return id;
     }
@@ -34,7 +37,6 @@ public class Message {
         this.message = message;
     }
 
-    @Column(name = "Message")
-    private String message;
+
 
 }

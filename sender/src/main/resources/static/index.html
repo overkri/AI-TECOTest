@@ -6,7 +6,7 @@
 </head>
 <body>
 Сообщение
-<br><textarea id="tarea" cols="60" rows="10" placeholder="Введите описание"></textarea><br>
+<br><textarea id="tarea" cols="60" rows="10" placeholder="Введите сообщение"></textarea><br>
 <input id="buttonConfirmMessage" type="button" class="buttonConfirmMessage" value="Отправить сообщение"/>
 </body>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -23,6 +23,8 @@
             data: {
                 message: message
             }
+        }).then(function (response) {
+            console.log(response.data);
         });
     }
 </script>

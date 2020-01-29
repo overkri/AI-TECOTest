@@ -11,14 +11,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class Listener {
 
+
+
     private MessageRepository messageRepository;
+
 
     @Autowired
     public Listener(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
     }
 
-    @RabbitListener(queues = "queue1")
+
+    @RabbitListener(queues = "${queue.name}" )
     public void processQueue1(String message) {
         Message msg = new Message(message);
         messageRepository.save(msg);

@@ -13,9 +13,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MessagingConfiguration {
 
+    public static final String LOCALHOST = "localhost";
+    public static final String QUEUE1 = "queue1";
+
     @Bean
     public ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("localhost");
+        return new CachingConnectionFactory(LOCALHOST);
     }
 
     @Bean
@@ -30,7 +33,7 @@ public class MessagingConfiguration {
 
     @Bean
     public Queue myQueue1() {
-        return new Queue("queue1");
+        return new Queue(QUEUE1);
     }
 
 }

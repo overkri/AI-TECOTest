@@ -1,30 +1,24 @@
 package com.example.sender.Controller;
 
 import com.example.listener.Entity.Message;
+import com.example.sender.DTO.Response;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
-import java.util.HashMap;
-import java.util.Map;
-
 import static java.util.Objects.requireNonNull;
 
-@Controller
+@RestController
 @Transactional
 public class MessageController {
 
     RabbitTemplate template;
 
     private Queue queue;
+
+    Response response = new Response();
 
     @Autowired
     public MessageController(@NonNull Queue queue, @NonNull RabbitTemplate template) {
@@ -34,14 +28,9 @@ public class MessageController {
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     @ResponseBody
-    public void getMessage(@RequestBody Message message) {
+    public Response getMessage(@RequestBody Message message) {
         this.template.convertAndSend(queue.getName(), message.getMessage());
+        response.setStatusSuccess(true);
+        return response;
     }
-
-    @RequestMapping(value = "/index")
-    public ModelAndView root() {
-        Map<String, Object> model = new HashMap<>();
-        return new ModelAndView("index", model);
-    }
-
 }
